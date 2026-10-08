@@ -32,4 +32,21 @@ variable using:
 
 Terraform version used: 1.16.5
 
-## Experiments
+## Experiments 1 - — Invalid AWS Credentials
+
+**Prediction:** AWS will reject invalid temporary credentials,
+preventing authentication.
+
+**Test:** I supplied invalid AWS access key, secret key, and
+session token values for a single AWS CLI command.
+
+**Result:** The command failed with InvalidClientTokenId.
+AWS reported that the security token was invalid.
+
+**Explanation:** AWS requires valid credentials to authenticate
+requests. This test simulated invalid credentials rather than
+waiting for the AWS Academy session to expire. Actual expired
+credentials may produce an ExpiredToken error.
+
+**Recovery:** The invalid credentials affected only one command.
+The original EC2 IAM role credentials remained unchanged.
