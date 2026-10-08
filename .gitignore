@@ -4,3 +4,5 @@
 .terraform/
 .env
 credentials
+*.tfstate.*
+acs730-key
