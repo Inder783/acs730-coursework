@@ -24,7 +24,7 @@ provider "aws" {
 
 variable "greeting" {
   type    = string
-  default = "hello from the workstation"
+  default = "hello from GitHub Actions"
 }
 
 resource "aws_ssm_parameter" "lab3" {
