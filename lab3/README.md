@@ -50,5 +50,24 @@ credentials may produce an ExpiredToken error.
 
 **Recovery:** The invalid credentials affected only one command.
 The original EC2 IAM role credentials remained unchanged.
-Concurrency experiment: first push
-Concurrency experiment: second push
+
+### Experiment 2 — GitHub Actions Concurrency
+
+**Prediction:** Setting `cancel-in-progress: true` will
+cancel an earlier workflow run when a new run starts
+in the same concurrency group.
+
+**Test:** I changed `cancel-in-progress` from false to
+true and pushed two commits to main approximately
+10 seconds apart.
+
+**Result:**
+- First workflow run (37730288217): Cancelled.
+- Second workflow run (37730303989): Successful.
+
+**Explanation:** GitHub Actions cancelled the earlier
+workflow because a newer run started in the same
+concurrency group.
+
+**Recovery:** Restore `cancel-in-progress: false`
+after the experiment.
