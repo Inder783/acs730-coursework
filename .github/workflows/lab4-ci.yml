@@ -1,0 +1,41 @@
+name: Lab 4 Docker CI
+
+on:
+  push:
+    branches: [lab4, main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  docker-smoke:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t acs730-lab4:ci ./lab4
+
+      - name: Start container
+        run: docker run -d --name lab4-ci -p 8000:8000 acs730-lab4:ci
+
+      - name: Test health endpoint
+        run: |
+          for i in {1..15}; do
+            if curl --fail --silent http://localhost:8000/healthz | grep -q '"status":"ok"'; then
+              echo "Health check passed"
+              exit 0
+            fi
+            sleep 2
+          done
+          docker logs lab4-ci
+          exit 1
+
+      - name: Stop container
+        if: always()
+        run: docker rm -f lab4-ci || true
+
