@@ -131,3 +131,152 @@ Composite actions are useful for repeated setup tasks. Reusable workflows are us
 ### Verification
 
 GitHub Actions Run #11, commit `38ebdd8`, completed successfully after both reusable components were integrated.
+
+## Build and Run
+
+Build the optimized Docker image from the repository root:
+
+    docker build -t acs730-lab4:optimized -f lab4/Dockerfile lab4
+
+Run the container:
+
+    docker run --rm -d --name lab4-app -p 8000:8000 acs730-lab4:optimized
+
+Test the health endpoint:
+
+    curl http://localhost:8000/healthz
+
+Expected response:
+
+    {"status":"ok","version":"dev"}
+
+Stop the container:
+
+    docker stop lab4-app
+
+
+## Why GHCR Uses SHA Tags
+
+The GitHub Actions workflow publishes Docker images to GitHub
+Container Registry (GHCR) using a tag based on the Git commit SHA.
+
+Each SHA tag identifies the source-code revision used to build the
+image. This makes it easier to trace deployments, investigate
+problems, and identify which code version was deployed.
+
+The latest tag can be overwritten whenever a new image is published.
+Therefore, latest does not reliably identify a specific version.
+
+SHA-based tagging is better for traceability and controlled rollbacks.
+For stronger deployment guarantees, an image digest can be used to
+identify the exact image content.
+
+
+## GitHub Actions vs AWS-Native CI/CD
+
+GitHub Actions runs automated tests, Docker builds, and publishing
+jobs using GitHub-hosted runners. It integrates directly with
+GitHub repositories and pull requests.
+
+An equivalent AWS-native solution would use:
+
+- AWS CodePipeline to coordinate the CI/CD stages.
+- AWS CodeBuild to execute tests and build Docker images.
+- Amazon ECR to store container images instead of GHCR.
+
+### Runners and Credentials
+
+GitHub Actions uses GitHub-hosted runners for the CI jobs.
+Our workflow uses GITHUB_TOKEN to authenticate with GHCR and
+publish container images.
+
+AWS CodeBuild uses AWS-managed build environments.
+It requires IAM service roles with appropriate permissions
+to access AWS resources such as ECR and build artifacts.
+
+### AWS Academy Limitations
+
+In an AWS Academy environment, IAM permissions are restricted.
+Students may be unable to create or modify the IAM roles
+required to configure CodePipeline, CodeBuild, and ECR.
+
+This can prevent a complete AWS-native CI/CD implementation
+even when the AWS services are available.
+
+### Recommendation
+
+For this lab, I recommend GitHub Actions because the code
+is already hosted on GitHub, hosted runners are available,
+and required status checks integrate with pull requests.
+
+AWS-native CI/CD would be more suitable for an organization
+that needs deeper integration with AWS services and has
+permission to manage the required IAM roles.
+
+
+## Experiments
+
+### Experiment 1 — Inverting Docker Layer Order
+
+**Prediction:** If I move COPY app.py above the dependency
+installation instructions, changing the application code will
+invalidate the Docker cache and force pip to reinstall dependencies.
+The rebuild should take longer than the optimized version.
+
+**Execution:** I created a temporary Dockerfile with COPY app.py
+before COPY requirements.txt and RUN pip install. I built the
+image, added a temporary comment to app.py, and rebuilt it.
+I also built the original optimized Dockerfile for comparison.
+
+**Results:**
+
+| Measurement | Inverted Dockerfile | Optimized Dockerfile |
+|---|---|---|
+| Rebuild time | 5.189 seconds | 0.619 seconds |
+| Pip installation | Executed (4.3 seconds) | CACHED |
+
+**Explanation:** The inverted Dockerfile reinstalled Flask and
+Gunicorn because changing app.py invalidated an earlier Docker
+layer. In the optimized Dockerfile, dependency installation
+remained cached because requirements.txt had not changed.
+The optimized rebuild was approximately 8.4 times faster.
+
+**Undo:** I restored the original app.py and removed the
+temporary Dockerfile. The original Dockerfile was not modified.
+
+
+### Experiment 2 — Removing .dockerignore
+
+**Prediction:** Removing .dockerignore might increase the amount
+of data transferred during a Docker build because files such as
+screenshots, tests, and the virtual environment would no longer
+be excluded. However, I expected the final optimized image size
+to remain unchanged because the Dockerfile copies only the
+application and requirements files.
+
+**Execution:** I created two temporary copies of the lab4
+directory outside the Git repository. One retained .dockerignore,
+while the other had it removed. I built both images and inspected
+their sizes and the contents of /app.
+
+**Results:**
+
+| Measurement | With .dockerignore | Without .dockerignore |
+|---|---|---|
+| Reported context transfer | 511 bytes | 511 bytes |
+| Image size | 130,049,846 bytes | 130,049,846 bytes |
+| Build time | 0.281 seconds | 0.297 seconds |
+| Files in /app | app.py, requirements.txt | app.py, requirements.txt |
+
+**Explanation:** Both builds reported the same context transfer
+size and produced identical images. This happened because the
+optimized Dockerfile explicitly copies only app.py and
+requirements.txt, while Docker BuildKit can optimize context
+transfer to the files required by the build. Removing
+.dockerignore did not increase the final image size in this
+experiment, but .dockerignore remains useful for excluding
+unnecessary or sensitive files from build contexts.
+
+**Undo:** The experiment used temporary directories outside the
+repository, so the original lab4/.dockerignore was never changed.
+
