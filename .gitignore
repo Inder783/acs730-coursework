@@ -6,3 +6,4 @@
 credentials
 *.tfstate.*
 acs730-key
+lab4/.venv/
