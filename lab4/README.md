@@ -103,3 +103,31 @@ Caching becomes more valuable when dependencies are larger, builds are more expe
 ### Experiment Conclusion
 
 The experiment confirmed that both pip and Docker layer caching work correctly. Cache hits improved the measured step durations, but the benefits must be compared against cache setup, transfer, and maintenance overhead.
+
+## Reusable GitHub Actions Components
+
+### Composite Action
+
+A composite action combines multiple steps into a reusable unit within a job.
+
+For Lab 4, I created `.github/actions/python-deps/action.yml`. It accepts a Python version as input, configures Python with pip caching, and installs the application dependencies.
+
+The main CI workflow uses this action for Python 3.11 and 3.12 before running pytest.
+
+### Reusable Workflow
+
+A reusable workflow allows one GitHub Actions workflow to call another workflow containing one or more jobs.
+
+For Lab 4, I created `.github/workflows/docker-build.yml`. It builds the Docker image, uses GitHub Actions layer caching, optionally publishes the image to GHCR, and uploads the image as an artifact.
+
+The main workflow calls this reusable workflow after the Python tests pass.
+
+### Key Difference
+
+A composite action reuses steps inside an existing job, while a reusable workflow reuses entire jobs or workflows.
+
+Composite actions are useful for repeated setup tasks. Reusable workflows are useful for standardizing larger CI/CD processes across projects.
+
+### Verification
+
+GitHub Actions Run #11, commit `38ebdd8`, completed successfully after both reusable components were integrated.
