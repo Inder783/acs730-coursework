@@ -275,6 +275,7 @@ requirements.txt, while Docker BuildKit can optimize context
 transfer to the files required by the build. Removing
 .dockerignore did not increase the final image size in this
 experiment, but .dockerignore remains useful for excluding
+**Naive vs. optimized Dockerfile:** A naive Dockerfile that uses `COPY . .` can include unnecessary files in the image when `.dockerignore` is removed, increasing its size. Our optimized Dockerfile copies only `app.py` and `requirements.txt`, so removing `.dockerignore` did not increase the final image size. This comparison explains why selective `COPY` instructions and `.dockerignore` are both useful.
 unnecessary or sensitive files from build contexts.
 
 **Undo:** The experiment used temporary directories outside the
