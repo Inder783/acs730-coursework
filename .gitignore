@@ -9,3 +9,10 @@ acs730-key
 lab4/.venv/
 lab4/__pycache__/
 lab4/tests/__pycache__/
+
+# Terraform files
+.terraform/
+*.tfstate
+*.tfstate.*
+tfplan
+crash.log
