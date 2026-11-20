@@ -59,7 +59,7 @@ build {
   sources = ["source.amazon-ebs.web"]
 
   provisioner "ansible" {
-    playbook_file = var.playbook_file
+    playbook_file = "${path.root}/../ansible/site.yml"
     user          = "ec2-user"
     use_proxy     = false
     ansible_env_vars = ["ANSIBLE_HOST_KEY_CHECKING=False"]
@@ -69,7 +69,7 @@ build {
     ]
   }
   provisioner "file" {
-    source      = "files/index.html"
+    source      = "${path.root}/files/index.html"
     destination = "/tmp/baked.html"
   }
   provisioner "shell" {
