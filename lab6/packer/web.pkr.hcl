@@ -59,9 +59,9 @@ build {
   sources = ["source.amazon-ebs.web"]
 
   provisioner "ansible" {
-    playbook_file = "${path.root}/../ansible/site.yml"
-    user          = "ec2-user"
-    use_proxy     = false
+    playbook_file    = "${path.root}/../ansible/site.yml"
+    user             = "ec2-user"
+    use_proxy        = false
     ansible_env_vars = ["ANSIBLE_HOST_KEY_CHECKING=False"]
     extra_arguments = [
       "--scp-extra-args", "'-O'",
