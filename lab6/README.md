@@ -58,12 +58,16 @@ Before a live GitHub Actions run, refresh the temporary Academy secrets using `.
 
 ## Timing comparison
 
-| Path | Launch to HTTP ready | Includes |
-| --- | --- | --- |
-| Stock AL2023 plus Ansible | Not measured yet | Launch, SSM registration, dnf, configuration, service start |
-| Golden AMI | Not measured yet | Launch, boot, preconfigured service start |
+| Method | Measured time | What was included |
+|---|---:|---|
+| Terraform + Ansible | 103 seconds | Terraform instance replacement, SSM readiness, Ansible convergence, HTTP readiness |
+| Golden AMI | 24 seconds | EC2 launch, boot, preconfigured service startup, HTTP readiness |
 
-Convergence pays SSM and package download latency at each launch and can fail if mirrors are unavailable. Golden AMIs shift that work to the build and improve repeat launches, but cost build time and snapshot storage, and require regular rebuilding to avoid stale packages. **Recommendation:** use a golden AMI for repeated deployments, and Ansible convergence for small or frequently changing fleets; reconsider after actual timing measurements.
+The golden AMI reached HTTP readiness **79 seconds faster**, approximately **76.7% less time**, or **4.29 times faster** than Terraform + Ansible in this test.
+
+Ansible convergence installs and configures the application after launch. A golden AMI shifts that work into the image build process, reducing repeated deployment time. However, golden AMIs require regular rebuilding and incur image/snapshot storage costs.
+
+Evidence: `evidence/boot-to-ready-ansible.txt` and `evidence/golden-ami-timing.txt`.
 
 ## Experiments
 
