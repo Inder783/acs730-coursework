@@ -71,12 +71,26 @@ Evidence: `evidence/boot-to-ready-ansible.txt` and `evidence/golden-ami-timing.t
 
 ## Experiments
 
-At least two experiments are required; **these are predictions, not observed results**.
+### Experiment 1 — Break Idempotency
 
-1. **Break idempotency:** Predict a shell-based mkdir task reports changed on repeated runs, but adding creates: prevents repeated changes. Test, record actual output, restore the original role, and reconfirm changed=0. Observed: pending.
-2. **Shrink inventory:** Predict stopping one instance removes it from the graph due to instance-state-name: running. Test the graph, restore the instance, and reconfirm both hosts. Observed: pending.
+**Prediction:** A shell-based `mkdir -p` task without `creates:` will report `changed=1` on repeated runs, even when the directory already exists.
 
-Write 2–3 sentences per experiment with prediction, observation and explanation once run.
+**Observation:** Both runs without `creates:` reported `changed=1`. After adding `creates: /tmp/acs730-lab6-experiment`, both runs reported `changed=0` because the directory already existed.
+
+**Explanation:** The `creates:` parameter prevents the shell command from running when the specified path exists. This experiment was performed locally on the workstation using a temporary playbook, leaving the original webserver role unchanged.
+
+Evidence: `evidence/experiment1-idempotency.txt`.
+
+### Experiment 2 — Shrink Dynamic Inventory
+
+**Prediction:** Stopping one EC2 instance will remove it from the dynamic inventory because the inventory filters for running instances.
+
+**Observation:** The inventory initially listed both EC2 instances. After stopping `i-0469215dc8f1bb273`, the inventory listed only `i-0e0ec888bcbfd612c`. Restarting the stopped instance restored both hosts.
+
+**Explanation:** The AWS EC2 dynamic inventory plugin discovers instances based on the configured filters. Because the inventory filters for running instances, stopping one removes it from the inventory without requiring any changes to the inventory configuration.
+
+Evidence: `evidence/experiment2-before.txt`, `evidence/experiment2-after.txt`, and `evidence/experiment2-restored.txt`.
+
 
 ## Cleanup — do not execute without approval
 
