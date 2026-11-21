@@ -1,0 +1,23 @@
+Golden AMI: ami-031ea21f7a79d31e5
+Test instance: i-033c38a979ec68ec6
+Public IP: 3.80.102.158
+
+HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.9.25
+Date: Fri, 20 Nov 2026 04:21:23 GMT
+Content-type: text/html
+Content-Length: 302
+Last-Modified: Fri, 20 Nov 2026 04:09:10 GMT
+
+<!doctype html>
+<html>
+  <head><title>ACS730 Lab 6</title></head>
+  <body>
+    <h1>ACS730 Lab 6</h1>
+    <p>Host name: ip-172-31-28-52</p>
+    <p>Private IP: 172.31.28.52</p>
+    <p>Distribution: Amazon 2023</p>
+    <p>Served by: acs730web on port 80</p>
+    <p>Build: golden-ami</p>
+  </body>
+</html>

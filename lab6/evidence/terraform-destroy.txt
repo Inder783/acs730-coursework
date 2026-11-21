@@ -1,0 +1,296 @@
+data.aws_ssm_parameter.al2023: Reading...
+aws_security_group.web: Refreshing state... [id=sg-07917cb39fd30bba1]
+data.aws_ssm_parameter.al2023: Read complete after 0s [id=/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64]
+aws_instance.web[1]: Refreshing state... [id=i-026699054b963e1d0]
+aws_instance.web[0]: Refreshing state... [id=i-03e4e39e0b10d85a0]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # aws_instance.web[0] will be destroyed
+  - resource "aws_instance" "web" {
+      - ami                                  = (sensitive value) -> null
+      - arn                                  = "arn:aws:ec2:us-east-1:622080298024:instance/i-03e4e39e0b10d85a0" -> null
+      - associate_public_ip_address          = true -> null
+      - availability_zone                    = "us-east-1a" -> null
+      - cpu_core_count                       = 1 -> null
+      - cpu_threads_per_core                 = 2 -> null
+      - disable_api_stop                     = false -> null
+      - disable_api_termination              = false -> null
+      - ebs_optimized                        = false -> null
+      - get_password_data                    = false -> null
+      - hibernation                          = false -> null
+      - iam_instance_profile                 = "LabInstanceProfile" -> null
+      - id                                   = "i-03e4e39e0b10d85a0" -> null
+      - instance_initiated_shutdown_behavior = "stop" -> null
+      - instance_state                       = "running" -> null
+      - instance_type                        = "t3.micro" -> null
+      - ipv6_address_count                   = 0 -> null
+      - ipv6_addresses                       = [] -> null
+      - monitoring                           = false -> null
+      - placement_partition_number           = 0 -> null
+      - primary_network_interface_id         = "eni-086dd12dc6a967a39" -> null
+      - private_dns                          = "ip-172-31-29-61.ec2.internal" -> null
+      - private_ip                           = "172.31.29.61" -> null
+      - public_dns                           = "ec2-18-208-191-208.compute-1.amazonaws.com" -> null
+      - public_ip                            = "18.208.191.208" -> null
+      - secondary_private_ips                = [] -> null
+      - security_groups                      = [
+          - "acs730-lab6-sg",
+        ] -> null
+      - source_dest_check                    = true -> null
+      - subnet_id                            = "subnet-099794184764d20d8" -> null
+      - tags                                 = {
+          - "Lab"     = "lab6"
+          - "Name"    = "acs730-lab6-web-0"
+          - "Project" = "acs730"
+          - "Role"    = "web"
+        } -> null
+      - tags_all                             = {
+          - "Lab"     = "lab6"
+          - "Name"    = "acs730-lab6-web-0"
+          - "Project" = "acs730"
+          - "Role"    = "web"
+        } -> null
+      - tenancy                              = "default" -> null
+      - user_data_replace_on_change          = false -> null
+      - vpc_security_group_ids               = [
+          - "sg-07917cb39fd30bba1",
+        ] -> null
+        # (7 unchanged attributes hidden)
+
+      - capacity_reservation_specification {
+          - capacity_reservation_preference = "open" -> null
+        }
+
+      - cpu_options {
+          - core_count       = 1 -> null
+          - threads_per_core = 2 -> null
+            # (1 unchanged attribute hidden)
+        }
+
+      - credit_specification {
+          - cpu_credits = "unlimited" -> null
+        }
+
+      - enclave_options {
+          - enabled = false -> null
+        }
+
+      - maintenance_options {
+          - auto_recovery = "default" -> null
+        }
+
+      - metadata_options {
+          - http_endpoint               = "enabled" -> null
+          - http_protocol_ipv6          = "disabled" -> null
+          - http_put_response_hop_limit = 2 -> null
+          - http_tokens                 = "required" -> null
+          - instance_metadata_tags      = "disabled" -> null
+        }
+
+      - private_dns_name_options {
+          - enable_resource_name_dns_a_record    = false -> null
+          - enable_resource_name_dns_aaaa_record = false -> null
+          - hostname_type                        = "ip-name" -> null
+        }
+
+      - root_block_device {
+          - delete_on_termination = true -> null
+          - device_name           = "/dev/xvda" -> null
+          - encrypted             = false -> null
+          - iops                  = 3000 -> null
+          - tags                  = {} -> null
+          - tags_all              = {} -> null
+          - throughput            = 125 -> null
+          - volume_id             = "vol-04f092f505fbcf5d9" -> null
+          - volume_size           = 8 -> null
+          - volume_type           = "gp3" -> null
+            # (1 unchanged attribute hidden)
+        }
+    }
+
+  # aws_instance.web[1] will be destroyed
+  - resource "aws_instance" "web" {
+      - ami                                  = (sensitive value) -> null
+      - arn                                  = "arn:aws:ec2:us-east-1:622080298024:instance/i-026699054b963e1d0" -> null
+      - associate_public_ip_address          = true -> null
+      - availability_zone                    = "us-east-1a" -> null
+      - cpu_core_count                       = 1 -> null
+      - cpu_threads_per_core                 = 2 -> null
+      - disable_api_stop                     = false -> null
+      - disable_api_termination              = false -> null
+      - ebs_optimized                        = false -> null
+      - get_password_data                    = false -> null
+      - hibernation                          = false -> null
+      - iam_instance_profile                 = "LabInstanceProfile" -> null
+      - id                                   = "i-026699054b963e1d0" -> null
+      - instance_initiated_shutdown_behavior = "stop" -> null
+      - instance_state                       = "running" -> null
+      - instance_type                        = "t3.micro" -> null
+      - ipv6_address_count                   = 0 -> null
+      - ipv6_addresses                       = [] -> null
+      - monitoring                           = false -> null
+      - placement_partition_number           = 0 -> null
+      - primary_network_interface_id         = "eni-0d4eee35035ab93b4" -> null
+      - private_dns                          = "ip-172-31-22-220.ec2.internal" -> null
+      - private_ip                           = "172.31.22.220" -> null
+      - public_dns                           = "ec2-54-159-28-122.compute-1.amazonaws.com" -> null
+      - public_ip                            = "54.159.28.122" -> null
+      - secondary_private_ips                = [] -> null
+      - security_groups                      = [
+          - "acs730-lab6-sg",
+        ] -> null
+      - source_dest_check                    = true -> null
+      - subnet_id                            = "subnet-099794184764d20d8" -> null
+      - tags                                 = {
+          - "Lab"     = "lab6"
+          - "Name"    = "acs730-lab6-web-1"
+          - "Project" = "acs730"
+          - "Role"    = "web"
+        } -> null
+      - tags_all                             = {
+          - "Lab"     = "lab6"
+          - "Name"    = "acs730-lab6-web-1"
+          - "Project" = "acs730"
+          - "Role"    = "web"
+        } -> null
+      - tenancy                              = "default" -> null
+      - user_data_replace_on_change          = false -> null
+      - vpc_security_group_ids               = [
+          - "sg-07917cb39fd30bba1",
+        ] -> null
+        # (7 unchanged attributes hidden)
+
+      - capacity_reservation_specification {
+          - capacity_reservation_preference = "open" -> null
+        }
+
+      - cpu_options {
+          - core_count       = 1 -> null
+          - threads_per_core = 2 -> null
+            # (1 unchanged attribute hidden)
+        }
+
+      - credit_specification {
+          - cpu_credits = "unlimited" -> null
+        }
+
+      - enclave_options {
+          - enabled = false -> null
+        }
+
+      - maintenance_options {
+          - auto_recovery = "default" -> null
+        }
+
+      - metadata_options {
+          - http_endpoint               = "enabled" -> null
+          - http_protocol_ipv6          = "disabled" -> null
+          - http_put_response_hop_limit = 2 -> null
+          - http_tokens                 = "required" -> null
+          - instance_metadata_tags      = "disabled" -> null
+        }
+
+      - private_dns_name_options {
+          - enable_resource_name_dns_a_record    = false -> null
+          - enable_resource_name_dns_aaaa_record = false -> null
+          - hostname_type                        = "ip-name" -> null
+        }
+
+      - root_block_device {
+          - delete_on_termination = true -> null
+          - device_name           = "/dev/xvda" -> null
+          - encrypted             = false -> null
+          - iops                  = 3000 -> null
+          - tags                  = {} -> null
+          - tags_all              = {} -> null
+          - throughput            = 125 -> null
+          - volume_id             = "vol-01b9b4cbf33f0b478" -> null
+          - volume_size           = 8 -> null
+          - volume_type           = "gp3" -> null
+            # (1 unchanged attribute hidden)
+        }
+    }
+
+  # aws_security_group.web will be destroyed
+  - resource "aws_security_group" "web" {
+      - arn                    = "arn:aws:ec2:us-east-1:622080298024:security-group/sg-07917cb39fd30bba1" -> null
+      - description            = "ACS730 Lab 6 HTTP only, SSM outbound" -> null
+      - egress                 = [
+          - {
+              - cidr_blocks      = [
+                  - "0.0.0.0/0",
+                ]
+              - from_port        = 0
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "-1"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ] -> null
+      - id                     = "sg-07917cb39fd30bba1" -> null
+      - ingress                = [
+          - {
+              - cidr_blocks      = [
+                  - "0.0.0.0/0",
+                ]
+              - from_port        = 80
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "tcp"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 80
+                # (1 unchanged attribute hidden)
+            },
+        ] -> null
+      - name                   = "acs730-lab6-sg" -> null
+      - owner_id               = "622080298024" -> null
+      - revoke_rules_on_delete = false -> null
+      - tags                   = {
+          - "Lab"     = "lab6"
+          - "Name"    = "acs730-lab6-sg"
+          - "Project" = "acs730"
+        } -> null
+      - tags_all               = {
+          - "Lab"     = "lab6"
+          - "Name"    = "acs730-lab6-sg"
+          - "Project" = "acs730"
+        } -> null
+      - vpc_id                 = "vpc-01623122ecad1d0ff" -> null
+        # (1 unchanged attribute hidden)
+    }
+
+Plan: 0 to add, 0 to change, 3 to destroy.
+
+Changes to Outputs:
+  - first_web_public_ip = "18.208.191.208" -> null
+  - security_group_id   = "sg-07917cb39fd30bba1" -> null
+  - web_instance_ids    = [
+      - "i-03e4e39e0b10d85a0",
+      - "i-026699054b963e1d0",
+    ] -> null
+  - web_public_ips      = [
+      - "18.208.191.208",
+      - "54.159.28.122",
+    ] -> null
+aws_instance.web[0]: Destroying... [id=i-03e4e39e0b10d85a0]
+aws_instance.web[1]: Destroying... [id=i-026699054b963e1d0]
+aws_instance.web[1]: Still destroying... [id=i-026699054b963e1d0, 10s elapsed]
+aws_instance.web[0]: Still destroying... [id=i-03e4e39e0b10d85a0, 10s elapsed]
+aws_instance.web[1]: Still destroying... [id=i-026699054b963e1d0, 20s elapsed]
+aws_instance.web[0]: Still destroying... [id=i-03e4e39e0b10d85a0, 20s elapsed]
+aws_instance.web[0]: Destruction complete after 20s
+aws_instance.web[1]: Still destroying... [id=i-026699054b963e1d0, 30s elapsed]
+aws_instance.web[1]: Destruction complete after 30s
+aws_security_group.web: Destroying... [id=sg-07917cb39fd30bba1]
+aws_security_group.web: Destruction complete after 0s
+
+Destroy complete! Resources: 3 destroyed.
