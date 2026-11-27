@@ -1,0 +1,17 @@
+module.web.aws_cloudwatch_metric_alarm.cpu_high: Creating...
+module.web.aws_cloudwatch_metric_alarm.cpu_high: Creation complete after 0s [id=acs730-assignment1-dev-cpu-high]
+
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+app_version = "v1"
+environment = "dev"
+instance_id = "i-0961fd07f2dc10c46"
+subnet_ids = {
+  "a" = "subnet-042fd3ced98c2c7be"
+  "b" = "subnet-063ada6aeac6e51db"
+}
+vpc_id = "vpc-0ddc10bece572072d"
+web_public_ip = "3.90.104.134"
+web_url = "http://3.90.104.134/"
