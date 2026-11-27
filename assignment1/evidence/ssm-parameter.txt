@@ -1,0 +1,10 @@
+=== SSM Parameter Metadata ===
+----------------------------------------------------------------
+|                      DescribeParameters                      |
++----------------------------------+----------------+----------+
+|               Name               |     Type       | Version  |
++----------------------------------+----------------+----------+
+|  /acs730/assignment1/db-password |  SecureString  |  1       |
++----------------------------------+----------------+----------+
+=== Terraform SSM Data Source ===
+module.web.data.aws_ssm_parameter.db_password

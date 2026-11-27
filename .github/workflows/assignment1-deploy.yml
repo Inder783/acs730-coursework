@@ -1,0 +1,136 @@
+name: Assignment 1 - Multi Environment Deployment
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'assignment1/terraform/**'
+      - '.github/workflows/assignment1-deploy.yml'
+
+  push:
+    branches: [main]
+    paths:
+      - 'assignment1/terraform/**'
+      - '.github/workflows/assignment1-deploy.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: assignment1-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  TF_IN_AUTOMATION: "true"
+  AWS_REGION: us-east-1
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.10.3"
+          terraform_wrapper: false
+
+      - name: Check Terraform formatting
+        run: terraform fmt -check -recursive assignment1/terraform
+
+      - name: Validate all environments
+        run: |
+          for env in dev staging prod; do
+            terraform -chdir=assignment1/terraform/$env init \
+              -backend=false -input=false
+            terraform -chdir=assignment1/terraform/$env validate
+          done
+
+  staging:
+    needs: validate
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: staging
+
+    defaults:
+      run:
+        working-directory: assignment1/terraform/staging
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.10.3"
+          terraform_wrapper: false
+
+      - name: Configure staging AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: us-east-1
+
+      - name: Terraform Init
+        run: terraform init -input=false
+
+      - name: Terraform Plan
+        run: terraform plan -input=false -no-color -out=tfplan
+
+      - name: Terraform Apply
+        run: terraform apply -input=false -no-color tfplan
+
+      - name: Verify staging application
+        run: |
+          URL=$(terraform output -raw web_url)
+          RESPONSE=$(curl --retry 18 --retry-delay 10 \
+            --retry-connrefused --fail --max-time 10 "$URL")
+          echo "$RESPONSE"
+          grep -F "Environment: staging" <<< "$RESPONSE"
+          grep -F "Application version: $(terraform output -raw app_version)" <<< "$RESPONSE"
+
+  prod:
+    needs: staging
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: prod
+
+    defaults:
+      run:
+        working-directory: assignment1/terraform/prod
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.10.3"
+          terraform_wrapper: false
+
+      - name: Configure production AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: us-east-1
+
+      - name: Terraform Init
+        run: terraform init -input=false
+
+      - name: Terraform Plan
+        run: terraform plan -input=false -no-color -out=tfplan
+
+      - name: Terraform Apply
+        run: terraform apply -input=false -no-color tfplan
+
+      - name: Verify production application
+        run: |
+          URL=$(terraform output -raw web_url)
+          RESPONSE=$(curl --retry 18 --retry-delay 10 \
+            --retry-connrefused --fail --max-time 10 "$URL")
+          echo "$RESPONSE"
+          grep -F "Environment: prod" <<< "$RESPONSE"
+          grep -F "Application version: $(terraform output -raw app_version)" <<< "$RESPONSE"

@@ -1,0 +1,37 @@
+module.web.aws_vpc.main: Creating...
+module.web.aws_vpc.main: Still creating... [10s elapsed]
+module.web.aws_vpc.main: Creation complete after 12s [id=vpc-0ddc10bece572072d]
+module.web.aws_subnet.public["a"]: Creating...
+module.web.aws_internet_gateway.main: Creating...
+module.web.aws_subnet.public["b"]: Creating...
+module.web.aws_security_group.web: Creating...
+module.web.aws_internet_gateway.main: Creation complete after 0s [id=igw-0cf32c059e42fdbfc]
+module.web.aws_route_table.public: Creating...
+module.web.aws_route_table.public: Creation complete after 1s [id=rtb-0ec51eee76cf7ecee]
+module.web.aws_security_group.web: Creation complete after 2s [id=sg-0c1443b6cb75612cb]
+module.web.aws_subnet.public["a"]: Still creating... [10s elapsed]
+module.web.aws_subnet.public["b"]: Still creating... [10s elapsed]
+module.web.aws_subnet.public["b"]: Creation complete after 11s [id=subnet-063ada6aeac6e51db]
+module.web.aws_subnet.public["a"]: Creation complete after 13s [id=subnet-042fd3ced98c2c7be]
+module.web.aws_route_table_association.public["a"]: Creating...
+module.web.aws_route_table_association.public["b"]: Creating...
+module.web.aws_route_table_association.public["b"]: Creation complete after 1s [id=rtbassoc-06600e41145dd1a98]
+module.web.aws_route_table_association.public["a"]: Creation complete after 1s [id=rtbassoc-05c5aff8c0209323b]
+module.web.aws_instance.web: Creating...
+module.web.aws_instance.web: Still creating... [10s elapsed]
+module.web.aws_instance.web: Creation complete after 13s [id=i-0961fd07f2dc10c46]
+
+Apply complete! Resources: 9 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+app_version = "v1"
+environment = "dev"
+instance_id = "i-0961fd07f2dc10c46"
+subnet_ids = {
+  "a" = "subnet-042fd3ced98c2c7be"
+  "b" = "subnet-063ada6aeac6e51db"
+}
+vpc_id = "vpc-0ddc10bece572072d"
+web_public_ip = "3.90.104.134"
+web_url = "http://3.90.104.134/"

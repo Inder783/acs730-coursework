@@ -1,0 +1,25 @@
+module.web.aws_instance.web: Destroying... [id=i-0961fd07f2dc10c46]
+module.web.aws_instance.web: Still destroying... [id=i-0961fd07f2dc10c46, 10s elapsed]
+module.web.aws_instance.web: Still destroying... [id=i-0961fd07f2dc10c46, 20s elapsed]
+module.web.aws_instance.web: Still destroying... [id=i-0961fd07f2dc10c46, 30s elapsed]
+module.web.aws_instance.web: Destruction complete after 30s
+module.web.aws_instance.web: Creating...
+module.web.aws_instance.web: Still creating... [10s elapsed]
+module.web.aws_instance.web: Creation complete after 12s [id=i-0d433538d9c101b62]
+module.web.aws_cloudwatch_metric_alarm.cpu_high: Modifying... [id=acs730-assignment1-dev-cpu-high]
+module.web.aws_cloudwatch_metric_alarm.cpu_high: Modifications complete after 0s [id=acs730-assignment1-dev-cpu-high]
+
+Apply complete! Resources: 1 added, 1 changed, 1 destroyed.
+
+Outputs:
+
+app_version = "v2"
+environment = "dev"
+instance_id = "i-0d433538d9c101b62"
+subnet_ids = {
+  "a" = "subnet-042fd3ced98c2c7be"
+  "b" = "subnet-063ada6aeac6e51db"
+}
+vpc_id = "vpc-0ddc10bece572072d"
+web_public_ip = "54.91.89.50"
+web_url = "http://54.91.89.50/"
