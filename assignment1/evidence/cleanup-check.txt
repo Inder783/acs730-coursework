@@ -1,0 +1,42 @@
+
+== EC2 instances
+   i-087ce8973261b88df  running  t3.micro  acs730-workstation   (your workstation -- keep this)
+
+== Your AMIs (and their snapshots)
+
+== Unattached EBS volumes
+
+== Snapshots you own
+
+== Non-default security groups
+   sg-0e0d70ffdc5ec03ff  efs-sg-1
+      -> aws ec2 delete-security-group --group-id sg-0e0d70ffdc5ec03ff
+   sg-00de0658f3625bc9b  efs-sg-2
+      -> aws ec2 delete-security-group --group-id sg-00de0658f3625bc9b
+   sg-034d1a7fd8fadaddd  instance-sg-2
+      -> aws ec2 delete-security-group --group-id sg-034d1a7fd8fadaddd
+   sg-0b85ddb538a1837b9  launch-wizard-1
+      -> aws ec2 delete-security-group --group-id sg-0b85ddb538a1837b9
+   sg-0f413925fe964f972  launch-wizard-7
+      -> aws ec2 delete-security-group --group-id sg-0f413925fe964f972
+   sg-0a06d9863fbf4cb07  launch-wizard-8
+      -> aws ec2 delete-security-group --group-id sg-0a06d9863fbf4cb07
+   sg-0ab9adceea74b0055  launch-wizard-5
+      -> aws ec2 delete-security-group --group-id sg-0ab9adceea74b0055
+   sg-087c88f935ea4ee1e  launch-wizard-3
+      -> aws ec2 delete-security-group --group-id sg-087c88f935ea4ee1e
+   sg-0bffdc55a4c94b895  launch-wizard-2
+      -> aws ec2 delete-security-group --group-id sg-0bffdc55a4c94b895
+   sg-0f4f82d746c055b53  launch-wizard-4
+      -> aws ec2 delete-security-group --group-id sg-0f4f82d746c055b53
+   sg-04645cb9aa43d41bb  instance-sg-1
+      -> aws ec2 delete-security-group --group-id sg-04645cb9aa43d41bb
+   sg-0635723c19b94c89b  launch-wizard-6
+      -> aws ec2 delete-security-group --group-id sg-0635723c19b94c89b
+   sg-008de590a2210d6f7  packer_6affc8b6-3b9a-1dfc-53a2-af7943d3a721
+      -> aws ec2 delete-security-group --group-id sg-008de590a2210d6f7
+
+== Terraform state files that still track resources
+
+Review the items above. This script deleted nothing.
+
