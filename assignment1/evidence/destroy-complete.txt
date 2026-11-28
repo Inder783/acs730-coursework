@@ -1,0 +1,1308 @@
+========== Destroying prod ==========
+module.web.data.aws_availability_zones.available: Reading...
+module.web.data.aws_ssm_parameter.db_password: Reading...
+module.web.data.aws_ami.al2023: Reading...
+module.web.aws_vpc.main: Refreshing state... [id=vpc-03d5376e43e2be586]
+module.web.data.aws_availability_zones.available: Read complete after 0s [id=us-east-1]
+module.web.data.aws_ssm_parameter.db_password: Read complete after 0s [id=/acs730/assignment1/db-password]
+module.web.data.aws_ami.al2023: Read complete after 0s [id=ami-02771ddfb8e749b97]
+module.web.aws_subnet.public["b"]: Refreshing state... [id=subnet-0bf7ba9f3d7fe52d4]
+module.web.aws_internet_gateway.main: Refreshing state... [id=igw-01b9ac5b96b359610]
+module.web.aws_subnet.public["a"]: Refreshing state... [id=subnet-08ca14745a90199f1]
+module.web.aws_security_group.web: Refreshing state... [id=sg-077eb30df24407a6f]
+module.web.aws_route_table.public: Refreshing state... [id=rtb-00f7a5f148ff1cd8f]
+module.web.aws_route_table_association.public["a"]: Refreshing state... [id=rtbassoc-08bc42b41895497d2]
+module.web.aws_route_table_association.public["b"]: Refreshing state... [id=rtbassoc-09f77f8830e405c9b]
+module.web.aws_instance.web: Refreshing state... [id=i-0d15ef49c16f863b7]
+module.web.aws_cloudwatch_metric_alarm.cpu_high: Refreshing state... [id=acs730-assignment1-prod-cpu-high]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # module.web.aws_cloudwatch_metric_alarm.cpu_high will be destroyed
+  - resource "aws_cloudwatch_metric_alarm" "cpu_high" {
+      - actions_enabled                       = true -> null
+      - alarm_actions                         = [] -> null
+      - alarm_description                     = "EC2 CPU utilization exceeds 80 percent" -> null
+      - alarm_name                            = "acs730-assignment1-prod-cpu-high" -> null
+      - arn                                   = "arn:aws:cloudwatch:us-east-1:622080298024:alarm:acs730-assignment1-prod-cpu-high" -> null
+      - comparison_operator                   = "GreaterThanThreshold" -> null
+      - datapoints_to_alarm                   = 0 -> null
+      - dimensions                            = {
+          - "InstanceId" = "i-0d15ef49c16f863b7"
+        } -> null
+      - evaluation_periods                    = 2 -> null
+      - id                                    = "acs730-assignment1-prod-cpu-high" -> null
+      - insufficient_data_actions             = [] -> null
+      - metric_name                           = "CPUUtilization" -> null
+      - namespace                             = "AWS/EC2" -> null
+      - ok_actions                            = [] -> null
+      - period                                = 300 -> null
+      - statistic                             = "Average" -> null
+      - tags                                  = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "prod"
+          - "Managed"     = "terraform"
+        } -> null
+      - tags_all                              = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "prod"
+          - "Managed"     = "terraform"
+        } -> null
+      - threshold                             = 80 -> null
+      - treat_missing_data                    = "missing" -> null
+        # (4 unchanged attributes hidden)
+    }
+
+  # module.web.aws_instance.web will be destroyed
+  - resource "aws_instance" "web" {
+      - ami                                  = "ami-02771ddfb8e749b97" -> null
+      - arn                                  = "arn:aws:ec2:us-east-1:622080298024:instance/i-0d15ef49c16f863b7" -> null
+      - associate_public_ip_address          = true -> null
+      - availability_zone                    = "us-east-1a" -> null
+      - cpu_core_count                       = 1 -> null
+      - cpu_threads_per_core                 = 2 -> null
+      - disable_api_stop                     = false -> null
+      - disable_api_termination              = false -> null
+      - ebs_optimized                        = false -> null
+      - get_password_data                    = false -> null
+      - hibernation                          = false -> null
+      - iam_instance_profile                 = "LabInstanceProfile" -> null
+      - id                                   = "i-0d15ef49c16f863b7" -> null
+      - instance_initiated_shutdown_behavior = "stop" -> null
+      - instance_state                       = "running" -> null
+      - instance_type                        = "t3.micro" -> null
+      - ipv6_address_count                   = 0 -> null
+      - ipv6_addresses                       = [] -> null
+      - monitoring                           = false -> null
+      - placement_partition_number           = 0 -> null
+      - primary_network_interface_id         = "eni-085012f6d882144d6" -> null
+      - private_dns                          = "ip-10-30-1-225.ec2.internal" -> null
+      - private_ip                           = "10.30.1.225" -> null
+      - public_dns                           = "ec2-98-80-125-203.compute-1.amazonaws.com" -> null
+      - public_ip                            = "98.80.125.203" -> null
+      - secondary_private_ips                = [] -> null
+      - security_groups                      = [] -> null
+      - source_dest_check                    = true -> null
+      - subnet_id                            = "subnet-08ca14745a90199f1" -> null
+      - tags                                 = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "prod"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-prod-web"
+        } -> null
+      - tags_all                             = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "prod"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-prod-web"
+        } -> null
+      - tenancy                              = "default" -> null
+      - user_data                            = "5be98153c4ad0fd25fb349fedae208ff1d561635" -> null
+      - user_data_replace_on_change          = true -> null
+      - vpc_security_group_ids               = [
+          - "sg-077eb30df24407a6f",
+        ] -> null
+        # (7 unchanged attributes hidden)
+
+      - capacity_reservation_specification {
+          - capacity_reservation_preference = "open" -> null
+        }
+
+      - cpu_options {
+          - core_count       = 1 -> null
+          - threads_per_core = 2 -> null
+            # (1 unchanged attribute hidden)
+        }
+
+      - credit_specification {
+          - cpu_credits = "unlimited" -> null
+        }
+
+      - enclave_options {
+          - enabled = false -> null
+        }
+
+      - maintenance_options {
+          - auto_recovery = "default" -> null
+        }
+
+      - metadata_options {
+          - http_endpoint               = "enabled" -> null
+          - http_protocol_ipv6          = "disabled" -> null
+          - http_put_response_hop_limit = 2 -> null
+          - http_tokens                 = "required" -> null
+          - instance_metadata_tags      = "disabled" -> null
+        }
+
+      - private_dns_name_options {
+          - enable_resource_name_dns_a_record    = false -> null
+          - enable_resource_name_dns_aaaa_record = false -> null
+          - hostname_type                        = "ip-name" -> null
+        }
+
+      - root_block_device {
+          - delete_on_termination = true -> null
+          - device_name           = "/dev/xvda" -> null
+          - encrypted             = true -> null
+          - iops                  = 3000 -> null
+          - kms_key_id            = "arn:aws:kms:us-east-1:622080298024:key/bb0a0954-7b1c-4f7c-b6a4-102242a8aacb" -> null
+          - tags                  = {} -> null
+          - tags_all              = {} -> null
+          - throughput            = 125 -> null
+          - volume_id             = "vol-009869b34f13b67f9" -> null
+          - volume_size           = 8 -> null
+          - volume_type           = "gp3" -> null
+        }
+    }
+
+  # module.web.aws_internet_gateway.main will be destroyed
+  - resource "aws_internet_gateway" "main" {
+      - arn      = "arn:aws:ec2:us-east-1:622080298024:internet-gateway/igw-01b9ac5b96b359610" -> null
+      - id       = "igw-01b9ac5b96b359610" -> null
+      - owner_id = "622080298024" -> null
+      - tags     = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "prod"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-prod-igw"
+        } -> null
+      - tags_all = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "prod"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-prod-igw"
+        } -> null
+      - vpc_id   = "vpc-03d5376e43e2be586" -> null
+    }
+
+  # module.web.aws_route_table.public will be destroyed
+  - resource "aws_route_table" "public" {
+      - arn              = "arn:aws:ec2:us-east-1:622080298024:route-table/rtb-00f7a5f148ff1cd8f" -> null
+      - id               = "rtb-00f7a5f148ff1cd8f" -> null
+      - owner_id         = "622080298024" -> null
+      - propagating_vgws = [] -> null
+      - route            = [
+          - {
+              - cidr_block                 = "0.0.0.0/0"
+              - gateway_id                 = "igw-01b9ac5b96b359610"
+                # (11 unchanged attributes hidden)
+            },
+        ] -> null
+      - tags             = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "prod"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-prod-public-rt"
+        } -> null
+      - tags_all         = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "prod"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-prod-public-rt"
+        } -> null
+      - vpc_id           = "vpc-03d5376e43e2be586" -> null
+    }
+
+  # module.web.aws_route_table_association.public["a"] will be destroyed
+  - resource "aws_route_table_association" "public" {
+      - id             = "rtbassoc-08bc42b41895497d2" -> null
+      - route_table_id = "rtb-00f7a5f148ff1cd8f" -> null
+      - subnet_id      = "subnet-08ca14745a90199f1" -> null
+        # (1 unchanged attribute hidden)
+    }
+
+  # module.web.aws_route_table_association.public["b"] will be destroyed
+  - resource "aws_route_table_association" "public" {
+      - id             = "rtbassoc-09f77f8830e405c9b" -> null
+      - route_table_id = "rtb-00f7a5f148ff1cd8f" -> null
+      - subnet_id      = "subnet-0bf7ba9f3d7fe52d4" -> null
+        # (1 unchanged attribute hidden)
+    }
+
+  # module.web.aws_security_group.web will be destroyed
+  - resource "aws_security_group" "web" {
+      - arn                    = "arn:aws:ec2:us-east-1:622080298024:security-group/sg-077eb30df24407a6f" -> null
+      - description            = "Web ingress for ACS730 Assignment 1" -> null
+      - egress                 = [
+          - {
+              - cidr_blocks      = [
+                  - "0.0.0.0/0",
+                ]
+              - description      = "All outbound"
+              - from_port        = 0
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "-1"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 0
+            },
+        ] -> null
+      - id                     = "sg-077eb30df24407a6f" -> null
+      - ingress                = [
+          - {
+              - cidr_blocks      = [
+                  - "0.0.0.0/0",
+                ]
+              - description      = "HTTP from anywhere"
+              - from_port        = 80
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "tcp"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 80
+            },
+        ] -> null
+      - name                   = "acs730-assignment1-prod-web" -> null
+      - owner_id               = "622080298024" -> null
+      - revoke_rules_on_delete = false -> null
+      - tags                   = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "prod"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-prod-web-sg"
+        } -> null
+      - tags_all               = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "prod"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-prod-web-sg"
+        } -> null
+      - vpc_id                 = "vpc-03d5376e43e2be586" -> null
+        # (1 unchanged attribute hidden)
+    }
+
+  # module.web.aws_subnet.public["a"] will be destroyed
+  - resource "aws_subnet" "public" {
+      - arn                                            = "arn:aws:ec2:us-east-1:622080298024:subnet/subnet-08ca14745a90199f1" -> null
+      - assign_ipv6_address_on_creation                = false -> null
+      - availability_zone                              = "us-east-1a" -> null
+      - availability_zone_id                           = "use1-az4" -> null
+      - cidr_block                                     = "10.30.1.0/24" -> null
+      - enable_dns64                                   = false -> null
+      - enable_lni_at_device_index                     = 0 -> null
+      - enable_resource_name_dns_a_record_on_launch    = false -> null
+      - enable_resource_name_dns_aaaa_record_on_launch = false -> null
+      - id                                             = "subnet-08ca14745a90199f1" -> null
+      - ipv6_native                                    = false -> null
+      - map_customer_owned_ip_on_launch                = false -> null
+      - map_public_ip_on_launch                        = true -> null
+      - owner_id                                       = "622080298024" -> null
+      - private_dns_hostname_type_on_launch            = "ip-name" -> null
+      - tags                                           = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "prod"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-prod-public-a"
+        } -> null
+      - tags_all                                       = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "prod"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-prod-public-a"
+        } -> null
+      - vpc_id                                         = "vpc-03d5376e43e2be586" -> null
+        # (4 unchanged attributes hidden)
+    }
+
+  # module.web.aws_subnet.public["b"] will be destroyed
+  - resource "aws_subnet" "public" {
+      - arn                                            = "arn:aws:ec2:us-east-1:622080298024:subnet/subnet-0bf7ba9f3d7fe52d4" -> null
+      - assign_ipv6_address_on_creation                = false -> null
+      - availability_zone                              = "us-east-1b" -> null
+      - availability_zone_id                           = "use1-az6" -> null
+      - cidr_block                                     = "10.30.2.0/24" -> null
+      - enable_dns64                                   = false -> null
+      - enable_lni_at_device_index                     = 0 -> null
+      - enable_resource_name_dns_a_record_on_launch    = false -> null
+      - enable_resource_name_dns_aaaa_record_on_launch = false -> null
+      - id                                             = "subnet-0bf7ba9f3d7fe52d4" -> null
+      - ipv6_native                                    = false -> null
+      - map_customer_owned_ip_on_launch                = false -> null
+      - map_public_ip_on_launch                        = true -> null
+      - owner_id                                       = "622080298024" -> null
+      - private_dns_hostname_type_on_launch            = "ip-name" -> null
+      - tags                                           = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "prod"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-prod-public-b"
+        } -> null
+      - tags_all                                       = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "prod"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-prod-public-b"
+        } -> null
+      - vpc_id                                         = "vpc-03d5376e43e2be586" -> null
+        # (4 unchanged attributes hidden)
+    }
+
+  # module.web.aws_vpc.main will be destroyed
+  - resource "aws_vpc" "main" {
+      - arn                                  = "arn:aws:ec2:us-east-1:622080298024:vpc/vpc-03d5376e43e2be586" -> null
+      - assign_generated_ipv6_cidr_block     = false -> null
+      - cidr_block                           = "10.30.0.0/16" -> null
+      - default_network_acl_id               = "acl-0b8c54d37a8bfd0f9" -> null
+      - default_route_table_id               = "rtb-02732c566ab7b8af2" -> null
+      - default_security_group_id            = "sg-05b0f378689e438a2" -> null
+      - dhcp_options_id                      = "dopt-073b41ca77ec48c9b" -> null
+      - enable_dns_hostnames                 = true -> null
+      - enable_dns_support                   = true -> null
+      - enable_network_address_usage_metrics = false -> null
+      - id                                   = "vpc-03d5376e43e2be586" -> null
+      - instance_tenancy                     = "default" -> null
+      - ipv6_netmask_length                  = 0 -> null
+      - main_route_table_id                  = "rtb-02732c566ab7b8af2" -> null
+      - owner_id                             = "622080298024" -> null
+      - tags                                 = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "prod"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-prod-vpc"
+        } -> null
+      - tags_all                             = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "prod"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-prod-vpc"
+        } -> null
+        # (4 unchanged attributes hidden)
+    }
+
+Plan: 0 to add, 0 to change, 10 to destroy.
+
+Changes to Outputs:
+  - app_version   = "v2" -> null
+  - environment   = "prod" -> null
+  - instance_id   = "i-0d15ef49c16f863b7" -> null
+  - subnet_ids    = {
+      - a = "subnet-08ca14745a90199f1"
+      - b = "subnet-0bf7ba9f3d7fe52d4"
+    } -> null
+  - vpc_id        = "vpc-03d5376e43e2be586" -> null
+  - web_public_ip = "98.80.125.203" -> null
+  - web_url       = "http://98.80.125.203/" -> null
+module.web.aws_cloudwatch_metric_alarm.cpu_high: Destroying... [id=acs730-assignment1-prod-cpu-high]
+module.web.aws_cloudwatch_metric_alarm.cpu_high: Destruction complete after 0s
+module.web.aws_instance.web: Destroying... [id=i-0d15ef49c16f863b7]
+module.web.aws_instance.web: Still destroying... [id=i-0d15ef49c16f863b7, 10s elapsed]
+module.web.aws_instance.web: Still destroying... [id=i-0d15ef49c16f863b7, 20s elapsed]
+module.web.aws_instance.web: Still destroying... [id=i-0d15ef49c16f863b7, 30s elapsed]
+module.web.aws_instance.web: Destruction complete after 30s
+module.web.aws_route_table_association.public["a"]: Destroying... [id=rtbassoc-08bc42b41895497d2]
+module.web.aws_route_table_association.public["b"]: Destroying... [id=rtbassoc-09f77f8830e405c9b]
+module.web.aws_security_group.web: Destroying... [id=sg-077eb30df24407a6f]
+module.web.aws_route_table_association.public["b"]: Destruction complete after 1s
+module.web.aws_route_table_association.public["a"]: Destruction complete after 1s
+module.web.aws_subnet.public["b"]: Destroying... [id=subnet-0bf7ba9f3d7fe52d4]
+module.web.aws_route_table.public: Destroying... [id=rtb-00f7a5f148ff1cd8f]
+module.web.aws_subnet.public["a"]: Destroying... [id=subnet-08ca14745a90199f1]
+module.web.aws_security_group.web: Destruction complete after 1s
+module.web.aws_route_table.public: Destruction complete after 0s
+module.web.aws_internet_gateway.main: Destroying... [id=igw-01b9ac5b96b359610]
+module.web.aws_subnet.public["b"]: Destruction complete after 1s
+module.web.aws_subnet.public["a"]: Destruction complete after 1s
+module.web.aws_internet_gateway.main: Destruction complete after 1s
+module.web.aws_vpc.main: Destroying... [id=vpc-03d5376e43e2be586]
+module.web.aws_vpc.main: Destruction complete after 1s
+
+Destroy complete! Resources: 10 destroyed.
+========== Destroying staging ==========
+module.web.data.aws_availability_zones.available: Reading...
+module.web.data.aws_ssm_parameter.db_password: Reading...
+module.web.data.aws_ami.al2023: Reading...
+module.web.aws_vpc.main: Refreshing state... [id=vpc-006135bff9aa65d25]
+module.web.data.aws_availability_zones.available: Read complete after 0s [id=us-east-1]
+module.web.data.aws_ssm_parameter.db_password: Read complete after 0s [id=/acs730/assignment1/db-password]
+module.web.data.aws_ami.al2023: Read complete after 0s [id=ami-02771ddfb8e749b97]
+module.web.aws_subnet.public["b"]: Refreshing state... [id=subnet-05473741d196b8215]
+module.web.aws_internet_gateway.main: Refreshing state... [id=igw-050e7dfa4435446f9]
+module.web.aws_subnet.public["a"]: Refreshing state... [id=subnet-006f70b32b5249d7c]
+module.web.aws_security_group.web: Refreshing state... [id=sg-02214fdc535d39fdd]
+module.web.aws_route_table.public: Refreshing state... [id=rtb-02e1e0e5250409b25]
+module.web.aws_route_table_association.public["b"]: Refreshing state... [id=rtbassoc-0f1ad3da4ab6823e1]
+module.web.aws_route_table_association.public["a"]: Refreshing state... [id=rtbassoc-03fd0fbb17ed9c1f4]
+module.web.aws_instance.web: Refreshing state... [id=i-0c66ebddfef567771]
+module.web.aws_cloudwatch_metric_alarm.cpu_high: Refreshing state... [id=acs730-assignment1-staging-cpu-high]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # module.web.aws_cloudwatch_metric_alarm.cpu_high will be destroyed
+  - resource "aws_cloudwatch_metric_alarm" "cpu_high" {
+      - actions_enabled                       = true -> null
+      - alarm_actions                         = [] -> null
+      - alarm_description                     = "EC2 CPU utilization exceeds 80 percent" -> null
+      - alarm_name                            = "acs730-assignment1-staging-cpu-high" -> null
+      - arn                                   = "arn:aws:cloudwatch:us-east-1:622080298024:alarm:acs730-assignment1-staging-cpu-high" -> null
+      - comparison_operator                   = "GreaterThanThreshold" -> null
+      - datapoints_to_alarm                   = 0 -> null
+      - dimensions                            = {
+          - "InstanceId" = "i-0c66ebddfef567771"
+        } -> null
+      - evaluation_periods                    = 2 -> null
+      - id                                    = "acs730-assignment1-staging-cpu-high" -> null
+      - insufficient_data_actions             = [] -> null
+      - metric_name                           = "CPUUtilization" -> null
+      - namespace                             = "AWS/EC2" -> null
+      - ok_actions                            = [] -> null
+      - period                                = 300 -> null
+      - statistic                             = "Average" -> null
+      - tags                                  = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "staging"
+          - "Managed"     = "terraform"
+        } -> null
+      - tags_all                              = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "staging"
+          - "Managed"     = "terraform"
+        } -> null
+      - threshold                             = 80 -> null
+      - treat_missing_data                    = "missing" -> null
+        # (4 unchanged attributes hidden)
+    }
+
+  # module.web.aws_instance.web will be destroyed
+  - resource "aws_instance" "web" {
+      - ami                                  = "ami-02771ddfb8e749b97" -> null
+      - arn                                  = "arn:aws:ec2:us-east-1:622080298024:instance/i-0c66ebddfef567771" -> null
+      - associate_public_ip_address          = true -> null
+      - availability_zone                    = "us-east-1a" -> null
+      - cpu_core_count                       = 1 -> null
+      - cpu_threads_per_core                 = 2 -> null
+      - disable_api_stop                     = false -> null
+      - disable_api_termination              = false -> null
+      - ebs_optimized                        = false -> null
+      - get_password_data                    = false -> null
+      - hibernation                          = false -> null
+      - iam_instance_profile                 = "LabInstanceProfile" -> null
+      - id                                   = "i-0c66ebddfef567771" -> null
+      - instance_initiated_shutdown_behavior = "stop" -> null
+      - instance_state                       = "running" -> null
+      - instance_type                        = "t3.micro" -> null
+      - ipv6_address_count                   = 0 -> null
+      - ipv6_addresses                       = [] -> null
+      - monitoring                           = false -> null
+      - placement_partition_number           = 0 -> null
+      - primary_network_interface_id         = "eni-0d05386af63e90b6c" -> null
+      - private_dns                          = "ip-10-20-1-252.ec2.internal" -> null
+      - private_ip                           = "10.20.1.252" -> null
+      - public_dns                           = "ec2-100-31-207-53.compute-1.amazonaws.com" -> null
+      - public_ip                            = "100.31.207.53" -> null
+      - secondary_private_ips                = [] -> null
+      - security_groups                      = [] -> null
+      - source_dest_check                    = true -> null
+      - subnet_id                            = "subnet-006f70b32b5249d7c" -> null
+      - tags                                 = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "staging"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-staging-web"
+        } -> null
+      - tags_all                             = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "staging"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-staging-web"
+        } -> null
+      - tenancy                              = "default" -> null
+      - user_data                            = "bf9089d33cc9c7c5ce41001d0fba5f9473d07b84" -> null
+      - user_data_replace_on_change          = true -> null
+      - vpc_security_group_ids               = [
+          - "sg-02214fdc535d39fdd",
+        ] -> null
+        # (7 unchanged attributes hidden)
+
+      - capacity_reservation_specification {
+          - capacity_reservation_preference = "open" -> null
+        }
+
+      - cpu_options {
+          - core_count       = 1 -> null
+          - threads_per_core = 2 -> null
+            # (1 unchanged attribute hidden)
+        }
+
+      - credit_specification {
+          - cpu_credits = "unlimited" -> null
+        }
+
+      - enclave_options {
+          - enabled = false -> null
+        }
+
+      - maintenance_options {
+          - auto_recovery = "default" -> null
+        }
+
+      - metadata_options {
+          - http_endpoint               = "enabled" -> null
+          - http_protocol_ipv6          = "disabled" -> null
+          - http_put_response_hop_limit = 2 -> null
+          - http_tokens                 = "required" -> null
+          - instance_metadata_tags      = "disabled" -> null
+        }
+
+      - private_dns_name_options {
+          - enable_resource_name_dns_a_record    = false -> null
+          - enable_resource_name_dns_aaaa_record = false -> null
+          - hostname_type                        = "ip-name" -> null
+        }
+
+      - root_block_device {
+          - delete_on_termination = true -> null
+          - device_name           = "/dev/xvda" -> null
+          - encrypted             = true -> null
+          - iops                  = 3000 -> null
+          - kms_key_id            = "arn:aws:kms:us-east-1:622080298024:key/bb0a0954-7b1c-4f7c-b6a4-102242a8aacb" -> null
+          - tags                  = {} -> null
+          - tags_all              = {} -> null
+          - throughput            = 125 -> null
+          - volume_id             = "vol-0d84d527d0beaed6f" -> null
+          - volume_size           = 8 -> null
+          - volume_type           = "gp3" -> null
+        }
+    }
+
+  # module.web.aws_internet_gateway.main will be destroyed
+  - resource "aws_internet_gateway" "main" {
+      - arn      = "arn:aws:ec2:us-east-1:622080298024:internet-gateway/igw-050e7dfa4435446f9" -> null
+      - id       = "igw-050e7dfa4435446f9" -> null
+      - owner_id = "622080298024" -> null
+      - tags     = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "staging"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-staging-igw"
+        } -> null
+      - tags_all = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "staging"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-staging-igw"
+        } -> null
+      - vpc_id   = "vpc-006135bff9aa65d25" -> null
+    }
+
+  # module.web.aws_route_table.public will be destroyed
+  - resource "aws_route_table" "public" {
+      - arn              = "arn:aws:ec2:us-east-1:622080298024:route-table/rtb-02e1e0e5250409b25" -> null
+      - id               = "rtb-02e1e0e5250409b25" -> null
+      - owner_id         = "622080298024" -> null
+      - propagating_vgws = [] -> null
+      - route            = [
+          - {
+              - cidr_block                 = "0.0.0.0/0"
+              - gateway_id                 = "igw-050e7dfa4435446f9"
+                # (11 unchanged attributes hidden)
+            },
+        ] -> null
+      - tags             = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "staging"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-staging-public-rt"
+        } -> null
+      - tags_all         = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "staging"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-staging-public-rt"
+        } -> null
+      - vpc_id           = "vpc-006135bff9aa65d25" -> null
+    }
+
+  # module.web.aws_route_table_association.public["a"] will be destroyed
+  - resource "aws_route_table_association" "public" {
+      - id             = "rtbassoc-03fd0fbb17ed9c1f4" -> null
+      - route_table_id = "rtb-02e1e0e5250409b25" -> null
+      - subnet_id      = "subnet-006f70b32b5249d7c" -> null
+        # (1 unchanged attribute hidden)
+    }
+
+  # module.web.aws_route_table_association.public["b"] will be destroyed
+  - resource "aws_route_table_association" "public" {
+      - id             = "rtbassoc-0f1ad3da4ab6823e1" -> null
+      - route_table_id = "rtb-02e1e0e5250409b25" -> null
+      - subnet_id      = "subnet-05473741d196b8215" -> null
+        # (1 unchanged attribute hidden)
+    }
+
+  # module.web.aws_security_group.web will be destroyed
+  - resource "aws_security_group" "web" {
+      - arn                    = "arn:aws:ec2:us-east-1:622080298024:security-group/sg-02214fdc535d39fdd" -> null
+      - description            = "Web ingress for ACS730 Assignment 1" -> null
+      - egress                 = [
+          - {
+              - cidr_blocks      = [
+                  - "0.0.0.0/0",
+                ]
+              - description      = "All outbound"
+              - from_port        = 0
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "-1"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 0
+            },
+        ] -> null
+      - id                     = "sg-02214fdc535d39fdd" -> null
+      - ingress                = [
+          - {
+              - cidr_blocks      = [
+                  - "0.0.0.0/0",
+                ]
+              - description      = "HTTP from anywhere"
+              - from_port        = 80
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "tcp"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 80
+            },
+        ] -> null
+      - name                   = "acs730-assignment1-staging-web" -> null
+      - owner_id               = "622080298024" -> null
+      - revoke_rules_on_delete = false -> null
+      - tags                   = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "staging"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-staging-web-sg"
+        } -> null
+      - tags_all               = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "staging"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-staging-web-sg"
+        } -> null
+      - vpc_id                 = "vpc-006135bff9aa65d25" -> null
+        # (1 unchanged attribute hidden)
+    }
+
+  # module.web.aws_subnet.public["a"] will be destroyed
+  - resource "aws_subnet" "public" {
+      - arn                                            = "arn:aws:ec2:us-east-1:622080298024:subnet/subnet-006f70b32b5249d7c" -> null
+      - assign_ipv6_address_on_creation                = false -> null
+      - availability_zone                              = "us-east-1a" -> null
+      - availability_zone_id                           = "use1-az4" -> null
+      - cidr_block                                     = "10.20.1.0/24" -> null
+      - enable_dns64                                   = false -> null
+      - enable_lni_at_device_index                     = 0 -> null
+      - enable_resource_name_dns_a_record_on_launch    = false -> null
+      - enable_resource_name_dns_aaaa_record_on_launch = false -> null
+      - id                                             = "subnet-006f70b32b5249d7c" -> null
+      - ipv6_native                                    = false -> null
+      - map_customer_owned_ip_on_launch                = false -> null
+      - map_public_ip_on_launch                        = true -> null
+      - owner_id                                       = "622080298024" -> null
+      - private_dns_hostname_type_on_launch            = "ip-name" -> null
+      - tags                                           = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "staging"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-staging-public-a"
+        } -> null
+      - tags_all                                       = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "staging"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-staging-public-a"
+        } -> null
+      - vpc_id                                         = "vpc-006135bff9aa65d25" -> null
+        # (4 unchanged attributes hidden)
+    }
+
+  # module.web.aws_subnet.public["b"] will be destroyed
+  - resource "aws_subnet" "public" {
+      - arn                                            = "arn:aws:ec2:us-east-1:622080298024:subnet/subnet-05473741d196b8215" -> null
+      - assign_ipv6_address_on_creation                = false -> null
+      - availability_zone                              = "us-east-1b" -> null
+      - availability_zone_id                           = "use1-az6" -> null
+      - cidr_block                                     = "10.20.2.0/24" -> null
+      - enable_dns64                                   = false -> null
+      - enable_lni_at_device_index                     = 0 -> null
+      - enable_resource_name_dns_a_record_on_launch    = false -> null
+      - enable_resource_name_dns_aaaa_record_on_launch = false -> null
+      - id                                             = "subnet-05473741d196b8215" -> null
+      - ipv6_native                                    = false -> null
+      - map_customer_owned_ip_on_launch                = false -> null
+      - map_public_ip_on_launch                        = true -> null
+      - owner_id                                       = "622080298024" -> null
+      - private_dns_hostname_type_on_launch            = "ip-name" -> null
+      - tags                                           = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "staging"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-staging-public-b"
+        } -> null
+      - tags_all                                       = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "staging"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-staging-public-b"
+        } -> null
+      - vpc_id                                         = "vpc-006135bff9aa65d25" -> null
+        # (4 unchanged attributes hidden)
+    }
+
+  # module.web.aws_vpc.main will be destroyed
+  - resource "aws_vpc" "main" {
+      - arn                                  = "arn:aws:ec2:us-east-1:622080298024:vpc/vpc-006135bff9aa65d25" -> null
+      - assign_generated_ipv6_cidr_block     = false -> null
+      - cidr_block                           = "10.20.0.0/16" -> null
+      - default_network_acl_id               = "acl-0ff790bbd4077bd3d" -> null
+      - default_route_table_id               = "rtb-05247ed4c055ae737" -> null
+      - default_security_group_id            = "sg-0b0827c7f11611f43" -> null
+      - dhcp_options_id                      = "dopt-073b41ca77ec48c9b" -> null
+      - enable_dns_hostnames                 = true -> null
+      - enable_dns_support                   = true -> null
+      - enable_network_address_usage_metrics = false -> null
+      - id                                   = "vpc-006135bff9aa65d25" -> null
+      - instance_tenancy                     = "default" -> null
+      - ipv6_netmask_length                  = 0 -> null
+      - main_route_table_id                  = "rtb-05247ed4c055ae737" -> null
+      - owner_id                             = "622080298024" -> null
+      - tags                                 = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "staging"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-staging-vpc"
+        } -> null
+      - tags_all                             = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "staging"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-staging-vpc"
+        } -> null
+        # (4 unchanged attributes hidden)
+    }
+
+Plan: 0 to add, 0 to change, 10 to destroy.
+
+Changes to Outputs:
+  - app_version   = "v2" -> null
+  - environment   = "staging" -> null
+  - instance_id   = "i-0c66ebddfef567771" -> null
+  - subnet_ids    = {
+      - a = "subnet-006f70b32b5249d7c"
+      - b = "subnet-05473741d196b8215"
+    } -> null
+  - vpc_id        = "vpc-006135bff9aa65d25" -> null
+  - web_public_ip = "100.31.207.53" -> null
+  - web_url       = "http://100.31.207.53/" -> null
+module.web.aws_cloudwatch_metric_alarm.cpu_high: Destroying... [id=acs730-assignment1-staging-cpu-high]
+module.web.aws_cloudwatch_metric_alarm.cpu_high: Destruction complete after 0s
+module.web.aws_instance.web: Destroying... [id=i-0c66ebddfef567771]
+module.web.aws_instance.web: Still destroying... [id=i-0c66ebddfef567771, 10s elapsed]
+module.web.aws_instance.web: Still destroying... [id=i-0c66ebddfef567771, 20s elapsed]
+module.web.aws_instance.web: Destruction complete after 30s
+module.web.aws_route_table_association.public["a"]: Destroying... [id=rtbassoc-03fd0fbb17ed9c1f4]
+module.web.aws_route_table_association.public["b"]: Destroying... [id=rtbassoc-0f1ad3da4ab6823e1]
+module.web.aws_security_group.web: Destroying... [id=sg-02214fdc535d39fdd]
+module.web.aws_route_table_association.public["b"]: Destruction complete after 0s
+module.web.aws_route_table_association.public["a"]: Destruction complete after 0s
+module.web.aws_subnet.public["b"]: Destroying... [id=subnet-05473741d196b8215]
+module.web.aws_subnet.public["a"]: Destroying... [id=subnet-006f70b32b5249d7c]
+module.web.aws_route_table.public: Destroying... [id=rtb-02e1e0e5250409b25]
+module.web.aws_security_group.web: Destruction complete after 1s
+module.web.aws_route_table.public: Destruction complete after 1s
+module.web.aws_internet_gateway.main: Destroying... [id=igw-050e7dfa4435446f9]
+module.web.aws_subnet.public["a"]: Destruction complete after 1s
+module.web.aws_subnet.public["b"]: Destruction complete after 1s
+module.web.aws_internet_gateway.main: Still destroying... [id=igw-050e7dfa4435446f9, 10s elapsed]
+module.web.aws_internet_gateway.main: Still destroying... [id=igw-050e7dfa4435446f9, 20s elapsed]
+module.web.aws_internet_gateway.main: Still destroying... [id=igw-050e7dfa4435446f9, 30s elapsed]
+module.web.aws_internet_gateway.main: Still destroying... [id=igw-050e7dfa4435446f9, 40s elapsed]
+module.web.aws_internet_gateway.main: Still destroying... [id=igw-050e7dfa4435446f9, 50s elapsed]
+module.web.aws_internet_gateway.main: Still destroying... [id=igw-050e7dfa4435446f9, 1m0s elapsed]
+module.web.aws_internet_gateway.main: Still destroying... [id=igw-050e7dfa4435446f9, 1m10s elapsed]
+module.web.aws_internet_gateway.main: Still destroying... [id=igw-050e7dfa4435446f9, 1m20s elapsed]
+module.web.aws_internet_gateway.main: Still destroying... [id=igw-050e7dfa4435446f9, 1m30s elapsed]
+module.web.aws_internet_gateway.main: Still destroying... [id=igw-050e7dfa4435446f9, 1m40s elapsed]
+module.web.aws_internet_gateway.main: Still destroying... [id=igw-050e7dfa4435446f9, 1m50s elapsed]
+module.web.aws_internet_gateway.main: Still destroying... [id=igw-050e7dfa4435446f9, 2m0s elapsed]
+module.web.aws_internet_gateway.main: Still destroying... [id=igw-050e7dfa4435446f9, 2m10s elapsed]
+module.web.aws_internet_gateway.main: Still destroying... [id=igw-050e7dfa4435446f9, 2m20s elapsed]
+module.web.aws_internet_gateway.main: Still destroying... [id=igw-050e7dfa4435446f9, 2m30s elapsed]
+module.web.aws_internet_gateway.main: Still destroying... [id=igw-050e7dfa4435446f9, 2m40s elapsed]
+module.web.aws_internet_gateway.main: Destruction complete after 2m44s
+module.web.aws_vpc.main: Destroying... [id=vpc-006135bff9aa65d25]
+module.web.aws_vpc.main: Destruction complete after 1s
+
+Destroy complete! Resources: 10 destroyed.
+========== Destroying dev ==========
+module.web.data.aws_ami.al2023: Reading...
+module.web.data.aws_ssm_parameter.db_password: Reading...
+module.web.data.aws_availability_zones.available: Reading...
+module.web.aws_vpc.main: Refreshing state... [id=vpc-0ddc10bece572072d]
+module.web.data.aws_ssm_parameter.db_password: Read complete after 0s [id=/acs730/assignment1/db-password]
+module.web.data.aws_availability_zones.available: Read complete after 0s [id=us-east-1]
+module.web.data.aws_ami.al2023: Read complete after 0s [id=ami-02771ddfb8e749b97]
+module.web.aws_internet_gateway.main: Refreshing state... [id=igw-0cf32c059e42fdbfc]
+module.web.aws_subnet.public["a"]: Refreshing state... [id=subnet-042fd3ced98c2c7be]
+module.web.aws_security_group.web: Refreshing state... [id=sg-0c1443b6cb75612cb]
+module.web.aws_subnet.public["b"]: Refreshing state... [id=subnet-063ada6aeac6e51db]
+module.web.aws_route_table.public: Refreshing state... [id=rtb-0ec51eee76cf7ecee]
+module.web.aws_route_table_association.public["b"]: Refreshing state... [id=rtbassoc-06600e41145dd1a98]
+module.web.aws_route_table_association.public["a"]: Refreshing state... [id=rtbassoc-05c5aff8c0209323b]
+module.web.aws_instance.web: Refreshing state... [id=i-0d433538d9c101b62]
+module.web.aws_cloudwatch_metric_alarm.cpu_high: Refreshing state... [id=acs730-assignment1-dev-cpu-high]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # module.web.aws_cloudwatch_metric_alarm.cpu_high will be destroyed
+  - resource "aws_cloudwatch_metric_alarm" "cpu_high" {
+      - actions_enabled                       = true -> null
+      - alarm_actions                         = [] -> null
+      - alarm_description                     = "EC2 CPU utilization exceeds 80 percent" -> null
+      - alarm_name                            = "acs730-assignment1-dev-cpu-high" -> null
+      - arn                                   = "arn:aws:cloudwatch:us-east-1:622080298024:alarm:acs730-assignment1-dev-cpu-high" -> null
+      - comparison_operator                   = "GreaterThanThreshold" -> null
+      - datapoints_to_alarm                   = 0 -> null
+      - dimensions                            = {
+          - "InstanceId" = "i-0d433538d9c101b62"
+        } -> null
+      - evaluation_periods                    = 2 -> null
+      - id                                    = "acs730-assignment1-dev-cpu-high" -> null
+      - insufficient_data_actions             = [] -> null
+      - metric_name                           = "CPUUtilization" -> null
+      - namespace                             = "AWS/EC2" -> null
+      - ok_actions                            = [] -> null
+      - period                                = 300 -> null
+      - statistic                             = "Average" -> null
+      - tags                                  = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "dev"
+          - "Managed"     = "terraform"
+        } -> null
+      - tags_all                              = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "dev"
+          - "Managed"     = "terraform"
+        } -> null
+      - threshold                             = 80 -> null
+      - treat_missing_data                    = "missing" -> null
+        # (4 unchanged attributes hidden)
+    }
+
+  # module.web.aws_instance.web will be destroyed
+  - resource "aws_instance" "web" {
+      - ami                                  = "ami-02771ddfb8e749b97" -> null
+      - arn                                  = "arn:aws:ec2:us-east-1:622080298024:instance/i-0d433538d9c101b62" -> null
+      - associate_public_ip_address          = true -> null
+      - availability_zone                    = "us-east-1a" -> null
+      - cpu_core_count                       = 1 -> null
+      - cpu_threads_per_core                 = 2 -> null
+      - disable_api_stop                     = false -> null
+      - disable_api_termination              = false -> null
+      - ebs_optimized                        = false -> null
+      - get_password_data                    = false -> null
+      - hibernation                          = false -> null
+      - iam_instance_profile                 = "LabInstanceProfile" -> null
+      - id                                   = "i-0d433538d9c101b62" -> null
+      - instance_initiated_shutdown_behavior = "stop" -> null
+      - instance_state                       = "running" -> null
+      - instance_type                        = "t3.micro" -> null
+      - ipv6_address_count                   = 0 -> null
+      - ipv6_addresses                       = [] -> null
+      - monitoring                           = false -> null
+      - placement_partition_number           = 0 -> null
+      - primary_network_interface_id         = "eni-0701d19a65debbc7b" -> null
+      - private_dns                          = "ip-10-10-1-32.ec2.internal" -> null
+      - private_ip                           = "10.10.1.32" -> null
+      - public_dns                           = "ec2-54-91-89-50.compute-1.amazonaws.com" -> null
+      - public_ip                            = "54.91.89.50" -> null
+      - secondary_private_ips                = [] -> null
+      - security_groups                      = [] -> null
+      - source_dest_check                    = true -> null
+      - subnet_id                            = "subnet-042fd3ced98c2c7be" -> null
+      - tags                                 = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "dev"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-dev-web"
+        } -> null
+      - tags_all                             = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "dev"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-dev-web"
+        } -> null
+      - tenancy                              = "default" -> null
+      - user_data                            = "75463e76511b81d5dbf9c2d73687552e64184610" -> null
+      - user_data_replace_on_change          = true -> null
+      - vpc_security_group_ids               = [
+          - "sg-0c1443b6cb75612cb",
+        ] -> null
+        # (7 unchanged attributes hidden)
+
+      - capacity_reservation_specification {
+          - capacity_reservation_preference = "open" -> null
+        }
+
+      - cpu_options {
+          - core_count       = 1 -> null
+          - threads_per_core = 2 -> null
+            # (1 unchanged attribute hidden)
+        }
+
+      - credit_specification {
+          - cpu_credits = "unlimited" -> null
+        }
+
+      - enclave_options {
+          - enabled = false -> null
+        }
+
+      - maintenance_options {
+          - auto_recovery = "default" -> null
+        }
+
+      - metadata_options {
+          - http_endpoint               = "enabled" -> null
+          - http_protocol_ipv6          = "disabled" -> null
+          - http_put_response_hop_limit = 2 -> null
+          - http_tokens                 = "required" -> null
+          - instance_metadata_tags      = "disabled" -> null
+        }
+
+      - private_dns_name_options {
+          - enable_resource_name_dns_a_record    = false -> null
+          - enable_resource_name_dns_aaaa_record = false -> null
+          - hostname_type                        = "ip-name" -> null
+        }
+
+      - root_block_device {
+          - delete_on_termination = true -> null
+          - device_name           = "/dev/xvda" -> null
+          - encrypted             = true -> null
+          - iops                  = 3000 -> null
+          - kms_key_id            = "arn:aws:kms:us-east-1:622080298024:key/bb0a0954-7b1c-4f7c-b6a4-102242a8aacb" -> null
+          - tags                  = {} -> null
+          - tags_all              = {} -> null
+          - throughput            = 125 -> null
+          - volume_id             = "vol-0380ec8bc44d1beba" -> null
+          - volume_size           = 8 -> null
+          - volume_type           = "gp3" -> null
+        }
+    }
+
+  # module.web.aws_internet_gateway.main will be destroyed
+  - resource "aws_internet_gateway" "main" {
+      - arn      = "arn:aws:ec2:us-east-1:622080298024:internet-gateway/igw-0cf32c059e42fdbfc" -> null
+      - id       = "igw-0cf32c059e42fdbfc" -> null
+      - owner_id = "622080298024" -> null
+      - tags     = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "dev"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-dev-igw"
+        } -> null
+      - tags_all = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "dev"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-dev-igw"
+        } -> null
+      - vpc_id   = "vpc-0ddc10bece572072d" -> null
+    }
+
+  # module.web.aws_route_table.public will be destroyed
+  - resource "aws_route_table" "public" {
+      - arn              = "arn:aws:ec2:us-east-1:622080298024:route-table/rtb-0ec51eee76cf7ecee" -> null
+      - id               = "rtb-0ec51eee76cf7ecee" -> null
+      - owner_id         = "622080298024" -> null
+      - propagating_vgws = [] -> null
+      - route            = [
+          - {
+              - cidr_block                 = "0.0.0.0/0"
+              - gateway_id                 = "igw-0cf32c059e42fdbfc"
+                # (11 unchanged attributes hidden)
+            },
+        ] -> null
+      - tags             = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "dev"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-dev-public-rt"
+        } -> null
+      - tags_all         = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "dev"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-dev-public-rt"
+        } -> null
+      - vpc_id           = "vpc-0ddc10bece572072d" -> null
+    }
+
+  # module.web.aws_route_table_association.public["a"] will be destroyed
+  - resource "aws_route_table_association" "public" {
+      - id             = "rtbassoc-05c5aff8c0209323b" -> null
+      - route_table_id = "rtb-0ec51eee76cf7ecee" -> null
+      - subnet_id      = "subnet-042fd3ced98c2c7be" -> null
+        # (1 unchanged attribute hidden)
+    }
+
+  # module.web.aws_route_table_association.public["b"] will be destroyed
+  - resource "aws_route_table_association" "public" {
+      - id             = "rtbassoc-06600e41145dd1a98" -> null
+      - route_table_id = "rtb-0ec51eee76cf7ecee" -> null
+      - subnet_id      = "subnet-063ada6aeac6e51db" -> null
+        # (1 unchanged attribute hidden)
+    }
+
+  # module.web.aws_security_group.web will be destroyed
+  - resource "aws_security_group" "web" {
+      - arn                    = "arn:aws:ec2:us-east-1:622080298024:security-group/sg-0c1443b6cb75612cb" -> null
+      - description            = "Web ingress for ACS730 Assignment 1" -> null
+      - egress                 = [
+          - {
+              - cidr_blocks      = [
+                  - "0.0.0.0/0",
+                ]
+              - description      = "All outbound"
+              - from_port        = 0
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "-1"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 0
+            },
+        ] -> null
+      - id                     = "sg-0c1443b6cb75612cb" -> null
+      - ingress                = [
+          - {
+              - cidr_blocks      = [
+                  - "0.0.0.0/0",
+                ]
+              - description      = "HTTP from anywhere"
+              - from_port        = 80
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "tcp"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 80
+            },
+        ] -> null
+      - name                   = "acs730-assignment1-dev-web" -> null
+      - owner_id               = "622080298024" -> null
+      - revoke_rules_on_delete = false -> null
+      - tags                   = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "dev"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-dev-web-sg"
+        } -> null
+      - tags_all               = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "dev"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-dev-web-sg"
+        } -> null
+      - vpc_id                 = "vpc-0ddc10bece572072d" -> null
+        # (1 unchanged attribute hidden)
+    }
+
+  # module.web.aws_subnet.public["a"] will be destroyed
+  - resource "aws_subnet" "public" {
+      - arn                                            = "arn:aws:ec2:us-east-1:622080298024:subnet/subnet-042fd3ced98c2c7be" -> null
+      - assign_ipv6_address_on_creation                = false -> null
+      - availability_zone                              = "us-east-1a" -> null
+      - availability_zone_id                           = "use1-az4" -> null
+      - cidr_block                                     = "10.10.1.0/24" -> null
+      - enable_dns64                                   = false -> null
+      - enable_lni_at_device_index                     = 0 -> null
+      - enable_resource_name_dns_a_record_on_launch    = false -> null
+      - enable_resource_name_dns_aaaa_record_on_launch = false -> null
+      - id                                             = "subnet-042fd3ced98c2c7be" -> null
+      - ipv6_native                                    = false -> null
+      - map_customer_owned_ip_on_launch                = false -> null
+      - map_public_ip_on_launch                        = true -> null
+      - owner_id                                       = "622080298024" -> null
+      - private_dns_hostname_type_on_launch            = "ip-name" -> null
+      - tags                                           = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "dev"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-dev-public-a"
+        } -> null
+      - tags_all                                       = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "dev"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-dev-public-a"
+        } -> null
+      - vpc_id                                         = "vpc-0ddc10bece572072d" -> null
+        # (4 unchanged attributes hidden)
+    }
+
+  # module.web.aws_subnet.public["b"] will be destroyed
+  - resource "aws_subnet" "public" {
+      - arn                                            = "arn:aws:ec2:us-east-1:622080298024:subnet/subnet-063ada6aeac6e51db" -> null
+      - assign_ipv6_address_on_creation                = false -> null
+      - availability_zone                              = "us-east-1b" -> null
+      - availability_zone_id                           = "use1-az6" -> null
+      - cidr_block                                     = "10.10.2.0/24" -> null
+      - enable_dns64                                   = false -> null
+      - enable_lni_at_device_index                     = 0 -> null
+      - enable_resource_name_dns_a_record_on_launch    = false -> null
+      - enable_resource_name_dns_aaaa_record_on_launch = false -> null
+      - id                                             = "subnet-063ada6aeac6e51db" -> null
+      - ipv6_native                                    = false -> null
+      - map_customer_owned_ip_on_launch                = false -> null
+      - map_public_ip_on_launch                        = true -> null
+      - owner_id                                       = "622080298024" -> null
+      - private_dns_hostname_type_on_launch            = "ip-name" -> null
+      - tags                                           = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "dev"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-dev-public-b"
+        } -> null
+      - tags_all                                       = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "dev"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-dev-public-b"
+        } -> null
+      - vpc_id                                         = "vpc-0ddc10bece572072d" -> null
+        # (4 unchanged attributes hidden)
+    }
+
+  # module.web.aws_vpc.main will be destroyed
+  - resource "aws_vpc" "main" {
+      - arn                                  = "arn:aws:ec2:us-east-1:622080298024:vpc/vpc-0ddc10bece572072d" -> null
+      - assign_generated_ipv6_cidr_block     = false -> null
+      - cidr_block                           = "10.10.0.0/16" -> null
+      - default_network_acl_id               = "acl-0d31a1a375717fd93" -> null
+      - default_route_table_id               = "rtb-028409c60dc201309" -> null
+      - default_security_group_id            = "sg-00bfc778f441e21f8" -> null
+      - dhcp_options_id                      = "dopt-073b41ca77ec48c9b" -> null
+      - enable_dns_hostnames                 = true -> null
+      - enable_dns_support                   = true -> null
+      - enable_network_address_usage_metrics = false -> null
+      - id                                   = "vpc-0ddc10bece572072d" -> null
+      - instance_tenancy                     = "default" -> null
+      - ipv6_netmask_length                  = 0 -> null
+      - main_route_table_id                  = "rtb-028409c60dc201309" -> null
+      - owner_id                             = "622080298024" -> null
+      - tags                                 = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "dev"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-dev-vpc"
+        } -> null
+      - tags_all                             = {
+          - "Assignment"  = "assignment1"
+          - "Course"      = "ACS730"
+          - "Environment" = "dev"
+          - "Managed"     = "terraform"
+          - "Name"        = "acs730-assignment1-dev-vpc"
+        } -> null
+        # (4 unchanged attributes hidden)
+    }
+
+Plan: 0 to add, 0 to change, 10 to destroy.
+
+Changes to Outputs:
+  - app_version   = "v2" -> null
+  - environment   = "dev" -> null
+  - instance_id   = "i-0d433538d9c101b62" -> null
+  - subnet_ids    = {
+      - a = "subnet-042fd3ced98c2c7be"
+      - b = "subnet-063ada6aeac6e51db"
+    } -> null
+  - vpc_id        = "vpc-0ddc10bece572072d" -> null
+  - web_public_ip = "54.91.89.50" -> null
+  - web_url       = "http://54.91.89.50/" -> null
+module.web.aws_cloudwatch_metric_alarm.cpu_high: Destroying... [id=acs730-assignment1-dev-cpu-high]
+module.web.aws_cloudwatch_metric_alarm.cpu_high: Destruction complete after 0s
+module.web.aws_instance.web: Destroying... [id=i-0d433538d9c101b62]
+module.web.aws_instance.web: Still destroying... [id=i-0d433538d9c101b62, 10s elapsed]
+module.web.aws_instance.web: Still destroying... [id=i-0d433538d9c101b62, 20s elapsed]
+module.web.aws_instance.web: Still destroying... [id=i-0d433538d9c101b62, 30s elapsed]
+module.web.aws_instance.web: Destruction complete after 30s
+module.web.aws_route_table_association.public["b"]: Destroying... [id=rtbassoc-06600e41145dd1a98]
+module.web.aws_security_group.web: Destroying... [id=sg-0c1443b6cb75612cb]
+module.web.aws_route_table_association.public["a"]: Destroying... [id=rtbassoc-05c5aff8c0209323b]
+module.web.aws_route_table_association.public["a"]: Destruction complete after 0s
+module.web.aws_route_table_association.public["b"]: Destruction complete after 0s
+module.web.aws_subnet.public["b"]: Destroying... [id=subnet-063ada6aeac6e51db]
+module.web.aws_subnet.public["a"]: Destroying... [id=subnet-042fd3ced98c2c7be]
+module.web.aws_route_table.public: Destroying... [id=rtb-0ec51eee76cf7ecee]
+module.web.aws_security_group.web: Destruction complete after 0s
+module.web.aws_route_table.public: Destruction complete after 0s
+module.web.aws_internet_gateway.main: Destroying... [id=igw-0cf32c059e42fdbfc]
+module.web.aws_subnet.public["a"]: Destruction complete after 1s
+module.web.aws_subnet.public["b"]: Destruction complete after 1s
+module.web.aws_internet_gateway.main: Destruction complete after 1s
+module.web.aws_vpc.main: Destroying... [id=vpc-0ddc10bece572072d]
+module.web.aws_vpc.main: Destruction complete after 1s
+
+Destroy complete! Resources: 10 destroyed.
